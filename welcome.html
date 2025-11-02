@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Willkommen bei GHL Universal Cloner</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+      color: white;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .header p {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 40px;
+    }
+
+    .feature {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: #f9fafb;
+      border-radius: 12px;
+      border-left: 4px solid #7c3aed;
+    }
+
+    .feature-icon {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+    }
+
+    .feature-content h3 {
+      font-size: 18px;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
+
+    .feature-content p {
+      font-size: 14px;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    .steps {
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 30px;
+      margin: 30px 0;
+    }
+
+    .steps h2 {
+      font-size: 24px;
+      color: #1f2937;
+      margin-bottom: 20px;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .step:last-child {
+      margin-bottom: 0;
+    }
+
+    .step-number {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      background: #7c3aed;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step-content h4 {
+      font-size: 16px;
+      color: #1f2937;
+      margin-bottom: 4px;
+    }
+
+    .step-content p {
+      font-size: 14px;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+
+    .warning {
+      background: #fef3c7;
+      border: 2px solid #fbbf24;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+
+    .warning h3 {
+      color: #92400e;
+      font-size: 16px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .warning p {
+      color: #78350f;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .cta {
+      text-align: center;
+      padding: 30px 0 0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      transition: transform 0.2s;
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(124, 58, 237, 0.4);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      background: #f9fafb;
+      color: #6b7280;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎉 Willkommen bei GHL Universal Cloner!</h1>
+      <p>Klone beliebige Websites und importiere sie in GoHighLevel</p>
+    </div>
+
+    <div class="content">
+      <div class="feature">
+        <div class="feature-icon">🌐</div>
+        <div class="feature-content">
+          <h3>Universelles Klonen</h3>
+          <p>Im Gegensatz zu anderen Tools kannst du mit GHL Universal Cloner <strong>jede beliebige Website</strong> klonen - nicht nur GoHighLevel-Seiten!</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-content">
+          <h3>Schnell & Einfach</h3>
+          <p>Mit nur wenigen Klicks extrahierst du HTML, CSS, Bilder und alle wichtigen Elemente einer Website.</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🎨</div>
+        <div class="feature-content">
+          <h3>Vollständige Extraktion</h3>
+          <p>Die Extension erfasst Struktur, Styles, Bilder, Schriftarten, Farben und Meta-Informationen.</p>
+        </div>
+      </div>
+
+      <div class="steps">
+        <h2>So funktioniert's:</h2>
+        
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h4>Website besuchen</h4>
+            <p>Navigiere zu der Website, die du klonen möchtest.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h4>Extension öffnen</h4>
+            <p>Klicke auf das GHL Universal Cloner Icon in deiner Browser-Toolbar.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h4>Website kopieren</h4>
+            <p>Klicke auf "Website kopieren" - die Extension analysiert und extrahiert alle Daten.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h4>In GHL einfügen</h4>
+            <p>Öffne den GoHighLevel Page Builder und klicke auf "In GHL einfügen".</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h4>Anpassen & Veröffentlichen</h4>
+            <p>Passe die importierten Inhalte an deine Bedürfnisse an und veröffentliche!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="warning">
+        <h3>⚠️ Wichtiger Hinweis</h3>
+        <p><strong>Respektiere Urheberrechte!</strong> Diese Extension ist als Werkzeug für Inspiration und Lernzwecke gedacht. Kopiere niemals 1:1 die Inhalte anderer ohne Erlaubnis. Nutze geklonte Strukturen als Ausgangspunkt und erstelle eigene, einzigartige Inhalte.</p>
+        <p style="margin-top: 12px;"><strong>Technische Limitierung:</strong> Eine perfekte 1:1 Konvertierung ist aufgrund der unterschiedlichen Technologien nicht immer möglich. Erwarte 70-80% Automatisierung - manuelle Nachbearbeitung kann erforderlich sein.</p>
+      </div>
+
+      <div class="cta">
+        <a href="#" class="btn" onclick="window.close(); return false;">Los geht's! 🚀</a>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>GHL Universal Cloner v1.0.0 - Entwickelt für die GoHighLevel Community</p>
+    </div>
+  </div>
+</body>
+</html>

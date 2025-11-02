@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GHL Universal Cloner</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="6" fill="#7C3AED"/>
+          <path d="M8 12h16M8 16h16M8 20h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h1>GHL Universal Cloner</h1>
+    </div>
+
+    <div class="status" id="status">
+      <span class="status-icon">●</span>
+      <span class="status-text" id="statusText">Bereit</span>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-button active" data-tab="actions">Aktionen</button>
+      <button class="tab-button" data-tab="settings">Einstellungen</button>
+    </div>
+
+    <div class="tab-content" id="actionsTab">
+      <div class="info-box">
+        <p><strong>Aktueller Modus:</strong> <span id="currentMode">Wird erkannt...</span></p>
+        <p><strong>URL:</strong> <span id="currentUrl" class="url-text">-</span></p>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="copyBtn">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 7V5a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2h-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <rect x="3" y="7" width="10" height="10" rx="2" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <span>Website kopieren</span>
+        </button>
+
+        <button class="btn btn-secondary" id="pasteBtn" disabled>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 3h4M6 3a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M10 10v5m-2.5-2.5L10 15l2.5-2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>In GHL einfügen</span>
+        </button>
+
+        <button class="btn btn-outline" id="previewBtn" disabled>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 3C5 3 1.73 7.11 1 10c.73 2.89 4 7 9 7s8.27-4.11 9-7c-.73-2.89-4-7-9-7z" stroke="currentColor" stroke-width="2"/>
+            <circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <span>Vorschau</span>
+        </button>
+      </div>
+
+      <div class="progress-container" id="progressContainer" style="display: none;">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <p class="progress-text" id="progressText">Analysiere Website...</p>
+      </div>
+
+      <div class="stats" id="stats" style="display: none;">
+        <h3>Extrahierte Daten:</h3>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-label">Elemente:</span>
+            <span class="stat-value" id="statElements">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Bilder:</span>
+            <span class="stat-value" id="statImages">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">CSS Rules:</span>
+            <span class="stat-value" id="statCss">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Größe:</span>
+            <span class="stat-value" id="statSize">0 KB</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="settingsTab" style="display: none;">
+      <div class="settings-section">
+        <h3>Extraktions-Einstellungen</h3>
+        
+        <label class="checkbox-label">
+          <input type="checkbox" id="extractImages" checked>
+          <span>Bilder extrahieren</span>
+        </label>
+
+        <label class="checkbox-label">
+          <input type="checkbox" id="extractCss" checked>
+          <span>CSS Styles extrahieren</span>
+        </label>
+
+        <label class="checkbox-label">
+          <input type="checkbox" id="extractFonts" checked>
+          <span>Schriftarten extrahieren</span>
+        </label>
+
+        <label class="checkbox-label">
+          <input type="checkbox" id="optimizeImages">
+          <span>Bilder optimieren</span>
+        </label>
+      </div>
+
+      <div class="settings-section">
+        <h3>GHL Integration</h3>
+        
+        <label class="input-label">
+          <span>GHL Location ID:</span>
+          <input type="text" id="ghlLocationId" placeholder="Deine GHL Location ID">
+        </label>
+
+        <label class="input-label">
+          <span>API Token (optional):</span>
+          <input type="password" id="ghlApiToken" placeholder="Für erweiterte Features">
+        </label>
+      </div>
+
+      <div class="settings-section">
+        <h3>Erweitert</h3>
+        
+        <label class="checkbox-label">
+          <input type="checkbox" id="debugMode">
+          <span>Debug-Modus aktivieren</span>
+        </label>
+
+        <button class="btn btn-outline btn-small" id="clearStorageBtn">
+          Gespeicherte Daten löschen
+        </button>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>GHL Universal Cloner v1.0.0</p>
+      <p class="footer-note">Nutze diese Extension verantwortungsvoll und respektiere Urheberrechte.</p>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

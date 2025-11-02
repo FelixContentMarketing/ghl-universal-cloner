@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GHL Universal Cloner - Vorschau</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f3f4f6;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+      color: white;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .header h1 {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      opacity: 0.9;
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      background: white;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .tab-btn {
+      padding: 10px 20px;
+      border: none;
+      background: transparent;
+      color: #6b7280;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      background: #f3f4f6;
+    }
+
+    .tab-btn.active {
+      background: #7c3aed;
+      color: white;
+    }
+
+    .tab-content {
+      display: none;
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .preview-frame {
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      min-height: 600px;
+      background: white;
+      overflow: auto;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .info-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 15px;
+    }
+
+    .info-card h3 {
+      font-size: 12px;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .info-card p {
+      font-size: 16px;
+      color: #1f2937;
+      font-weight: 600;
+    }
+
+    .code-block {
+      background: #1f2937;
+      color: #e5e7eb;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .image-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #f9fafb;
+    }
+
+    .image-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      background: #e5e7eb;
+    }
+
+    .image-card .info {
+      padding: 10px;
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .no-data {
+      text-align: center;
+      padding: 60px 20px;
+      color: #9ca3af;
+    }
+
+    .no-data svg {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 16px;
+      opacity: 0.5;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #7c3aed;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #6d28d9;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #7c3aed;
+      border: 2px solid #7c3aed;
+    }
+
+    .btn-secondary:hover {
+      background: #f5f3ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🔍 Vorschau der kopierten Website</h1>
+    <p>Überprüfe die extrahierten Daten vor dem Import in GoHighLevel</p>
+  </div>
+
+  <div class="container">
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="preview">Vorschau</button>
+      <button class="tab-btn" data-tab="info">Informationen</button>
+      <button class="tab-btn" data-tab="html">HTML</button>
+      <button class="tab-btn" data-tab="css">CSS</button>
+      <button class="tab-btn" data-tab="images">Bilder</button>
+      <button class="tab-btn" data-tab="json">JSON Export</button>
+    </div>
+
+    <div class="tab-content active" id="preview">
+      <div class="actions">
+        <button class="btn btn-primary" id="copyJsonBtn">JSON kopieren</button>
+        <button class="btn btn-secondary" id="downloadJsonBtn">JSON herunterladen</button>
+      </div>
+      <div class="preview-frame" id="previewFrame">
+        <div class="no-data">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <p>Lade Vorschau...</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="info">
+      <div class="info-grid" id="infoGrid"></div>
+    </div>
+
+    <div class="tab-content" id="html">
+      <pre class="code-block" id="htmlCode"></pre>
+    </div>
+
+    <div class="tab-content" id="css">
+      <pre class="code-block" id="cssCode"></pre>
+    </div>
+
+    <div class="tab-content" id="images">
+      <div class="image-grid" id="imageGrid"></div>
+    </div>
+
+    <div class="tab-content" id="json">
+      <div class="actions">
+        <button class="btn btn-primary" id="copyJsonBtn2">JSON kopieren</button>
+        <button class="btn btn-secondary" id="downloadJsonBtn2">JSON herunterladen</button>
+      </div>
+      <pre class="code-block" id="jsonCode"></pre>
+    </div>
+  </div>
+
+  <script>
+    let websiteData = null;
+
+    // Load data from storage
+    chrome.storage.local.get(['copiedWebsiteData'], (result) => {
+      if (result.copiedWebsiteData) {
+        websiteData = result.copiedWebsiteData;
+        renderPreview();
+      } else {
+        showNoData();
+      }
+    });
+
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    // Copy JSON
+    document.getElementById('copyJsonBtn').addEventListener('click', copyJson);
+    document.getElementById('copyJsonBtn2').addEventListener('click', copyJson);
+
+    // Download JSON
+    document.getElementById('downloadJsonBtn').addEventListener('click', downloadJson);
+    document.getElementById('downloadJsonBtn2').addEventListener('click', downloadJson);
+
+    function renderPreview() {
+      // Render HTML preview
+      const previewFrame = document.getElementById('previewFrame');
+      previewFrame.innerHTML = websiteData.html || '<p>Kein HTML-Inhalt verfügbar</p>';
+
+      // Render info
+      const infoGrid = document.getElementById('infoGrid');
+      infoGrid.innerHTML = `
+        <div class="info-card">
+          <h3>Titel</h3>
+          <p>${websiteData.title || 'N/A'}</p>
+        </div>
+        <div class="info-card">
+          <h3>URL</h3>
+          <p style="font-size: 12px; word-break: break-all;">${websiteData.url || 'N/A'}</p>
+        </div>
+        <div class="info-card">
+          <h3>Datum</h3>
+          <p>${new Date(websiteData.timestamp).toLocaleString('de-DE')}</p>
+        </div>
+        <div class="info-card">
+          <h3>Größe</h3>
+          <p>${websiteData.size || 0} KB</p>
+        </div>
+        <div class="info-card">
+          <h3>Bilder</h3>
+          <p>${websiteData.images?.length || 0}</p>
+        </div>
+        <div class="info-card">
+          <h3>CSS Rules</h3>
+          <p>${websiteData.css?.stylesheets?.reduce((sum, s) => sum + s.rules.length, 0) || 0}</p>
+        </div>
+        <div class="info-card">
+          <h3>Schriftarten</h3>
+          <p>${websiteData.fonts?.length || 0}</p>
+        </div>
+        <div class="info-card">
+          <h3>Elemente</h3>
+          <p>${websiteData.structure?.totalElements || 0}</p>
+        </div>
+      `;
+
+      // Render HTML code
+      document.getElementById('htmlCode').textContent = websiteData.html || 'Kein HTML verfügbar';
+
+      // Render CSS code
+      const cssCode = websiteData.css?.stylesheets?.map(s => s.rules.join('\n')).join('\n\n') || 'Kein CSS verfügbar';
+      document.getElementById('cssCode').textContent = cssCode;
+
+      // Render images
+      const imageGrid = document.getElementById('imageGrid');
+      if (websiteData.images && websiteData.images.length > 0) {
+        imageGrid.innerHTML = websiteData.images.map(img => `
+          <div class="image-card">
+            <img src="${img.src}" alt="${img.alt || ''}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22150%22%3E%3Crect fill=%22%23e5e7eb%22 width=%22200%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%239ca3af%22%3EBild nicht verfügbar%3C/text%3E%3C/svg%3E'">
+            <div class="info">
+              <div><strong>Alt:</strong> ${img.alt || 'N/A'}</div>
+              <div><strong>Typ:</strong> ${img.type || 'img'}</div>
+              ${img.width ? `<div><strong>Größe:</strong> ${img.width}x${img.height}</div>` : ''}
+            </div>
+          </div>
+        `).join('');
+      } else {
+        imageGrid.innerHTML = '<div class="no-data"><p>Keine Bilder gefunden</p></div>';
+      }
+
+      // Render JSON
+      document.getElementById('jsonCode').textContent = JSON.stringify(websiteData, null, 2);
+    }
+
+    function showNoData() {
+      document.getElementById('previewFrame').innerHTML = `
+        <div class="no-data">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p>Keine kopierten Daten verfügbar</p>
+          <p style="font-size: 14px; margin-top: 8px;">Bitte kopiere zuerst eine Website mit der Extension.</p>
+        </div>
+      `;
+    }
+
+    function copyJson() {
+      if (!websiteData) return;
+      
+      const json = JSON.stringify(websiteData, null, 2);
+      navigator.clipboard.writeText(json).then(() => {
+        alert('JSON in Zwischenablage kopiert!');
+      }).catch(err => {
+        alert('Fehler beim Kopieren: ' + err.message);
+      });
+    }
+
+    function downloadJson() {
+      if (!websiteData) return;
+      
+      const json = JSON.stringify(websiteData, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `ghl-cloner-${Date.now()}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
